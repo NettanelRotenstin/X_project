@@ -1,12 +1,17 @@
 import express,{Express} from 'express'
 import 'dotenv/config'
+import authController from './controllers/authController'
+import userController from './controllers/userController'
+import postController from './controllers/postController'
 
 const app: Express = express()
 
- 
+ app.use('/auth',authController)
+ app.use('/user',userController)
+ app.use('/post',postController)
  
 
-app.use(express.json())
+ 
 
 
 app.listen(process.env.PORT, (): void => {
