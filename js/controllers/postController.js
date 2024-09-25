@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const postService_1 = __importDefault(require("../services/postService"));
 const router = express_1.default.Router();
 //get all posts
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,11 +35,17 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 //create post
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
-        });
+        const result = yield postService_1.default.createNewPost(req.body);
+        if (result) {
+            res.json({
+                err: false,
+                message: "I was too lazy to change the default message",
+                data: undefined,
+            });
+        }
+        else {
+            throw new Error("Cant Save New post to the file");
+        }
     }
     catch (_a) {
         res.status(400).json({

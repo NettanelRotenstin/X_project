@@ -13,21 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const userService_1 = __importDefault(require("../services/userService"));
 const router = express_1.default.Router();
 //register
-router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
-        });
+        const result = yield userService_1.default.createNewUser(req.body);
+        if (result) {
+            res.json({
+                err: false,
+                message: "I was too lazy to change the default message",
+                data: undefined,
+            });
+        }
+        else {
+            throw new Error("Cant Save New User to the file");
+        }
     }
-    catch (_a) {
-        res.status(400).json({
+    catch (err) {
+        res.status(404).json({
             err: true,
-            message: `usercontroller register catch`,
-            data: null
+            message: "I was too lazy to change the default message",
+            data: null,
         });
     }
 }));

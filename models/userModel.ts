@@ -11,7 +11,7 @@ class User {
        public password: string,
        public email:string,
        public birthday:Date,
-       public avatarUrl:Date,
+       public avatarUrl:string
       ) {
       this.id = v4();
     }
