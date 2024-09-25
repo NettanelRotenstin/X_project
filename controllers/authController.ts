@@ -18,7 +18,7 @@ router.post('/login',async (req:Request, res:Response): Promise<void> =>{
     }
 })
 
-
+//logout
 router.post('/logout',async (req:Request, res:Response): Promise<void> =>{
     try{
         res.json({
