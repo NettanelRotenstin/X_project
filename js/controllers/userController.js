@@ -39,18 +39,17 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 }));
 //follow
-router.post('/follow', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/follow/:iId/:oId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        userService_1.default.follow(req.params.iId, req.params.oId);
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            success: true
         });
     }
     catch (_a) {
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `usercontroller follow catch`,
             data: null
         });
     }
@@ -90,18 +89,18 @@ router.get('/profile', (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 }));
 //my followers
-router.get('/followers', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/followers/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const myFollowers = yield userService_1.default.getFollowers(req.params.id);
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            soccess: true,
+            myFollowers
         });
     }
     catch (_a) {
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `usercontroller followers catch`,
             data: null
         });
     }

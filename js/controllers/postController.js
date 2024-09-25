@@ -18,11 +18,13 @@ const router = express_1.default.Router();
 //get all posts
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
-        });
+        const result = yield postService_1.default.getAllPosts();
+        if (result) {
+            res.json({
+                err: false,
+                result
+            });
+        }
     }
     catch (_a) {
         res.status(400).json({
@@ -56,29 +58,27 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 }));
 //search post
-router.get('/search/:name', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const result = yield postService_1.default.getBySearch(req.query.content);
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            result
         });
     }
     catch (_a) {
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `postcontroller search catch`,
             data: null
         });
     }
 }));
 //like post
-router.patch('/like', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/like/:idU/:idP', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        yield postService_1.default.like(req.params.idU, req.params.idP);
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            status: `OK`
         });
     }
     catch (_a) {
@@ -92,16 +92,15 @@ router.patch('/like', (req, res) => __awaiter(void 0, void 0, void 0, function* 
 //get one post
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const post = yield postService_1.default.getOnePosts(req.params.id);
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            post
         });
     }
     catch (_a) {
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `postcontroller onepost catch`,
             data: null
         });
     }

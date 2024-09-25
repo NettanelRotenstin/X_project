@@ -29,17 +29,16 @@ router.post("/register", async (req: Request<any,any,newUserDTO>, res: Response)
 
 
 //follow
-router.post('/follow',async (req:Request, res:Response): Promise<void> =>{
+router.patch('/follow/:iId/:oId',async (req:Request, res:Response): Promise<void> =>{
     try{
+        userService.follow(req.params.iId,req.params.oId)
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            success:true
         })
     }catch{
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `usercontroller follow catch`,
             data: null
         })
     }
@@ -82,17 +81,17 @@ router.get('/profile',async (req:Request, res:Response): Promise<void> =>{
 })
 
 //my followers
-router.get('/followers',async (req:Request, res:Response): Promise<void> =>{
+router.get('/followers/:id',async (req:Request, res:Response): Promise<void> =>{
     try{
-        res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
-        })
+       const myFollowers = await userService.getFollowers(req.params.id)
+       res.json({
+        soccess:true,
+        myFollowers
+       })
     }catch{
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `usercontroller followers catch`,
             data: null
         })
     }

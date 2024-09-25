@@ -1,17 +1,21 @@
 import express, { Router,Request,Response } from 'express'
 import newPostDTO from '../DTO/newPostDTO'
 import PostService from '../services/postService'
+import Post from '../models/postModel'
 
 const router:Router = express.Router()
 
 //get all posts
-router.get('/',async (req:Request, res:Response): Promise<void> =>{
+router.get('/',async (req:Request, res:Response): Promise<Post[]|void> =>{
     try{
-        res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
-        })
+       const result = await PostService.getAllPosts()       
+        if(result)
+        {
+            res.json({
+                err:false,
+                result
+            })
+        }
     }catch{
         res.status(400).json({
             err: true,
@@ -45,17 +49,16 @@ router.post('/',async (req:Request<any,any,newPostDTO>, res:Response): Promise<v
 })
 
 //search post
-router.get('/search/:name',async (req:Request, res:Response): Promise<void> =>{
+router.get('/search',async (req:Request, res:Response): Promise<void> =>{
     try{
+         const result:Post[]|void= await PostService.getBySearch(req.query.content as string)
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            result
         })
     }catch{
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `postcontroller search catch`,
             data: null
         })
     }
@@ -63,13 +66,12 @@ router.get('/search/:name',async (req:Request, res:Response): Promise<void> =>{
 
 
 //like post
-router.patch('/like',async (req:Request, res:Response): Promise<void> =>{
+router.patch('/like/:idU/:idP',async (req:Request, res:Response): Promise<void> =>{
     try{
-        res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
-        })
+         await PostService.like(req.params.idU,req.params.idP)
+         res.json({
+            status:`OK`
+         })
     }catch{
         res.status(400).json({
             err: true,
@@ -80,17 +82,16 @@ router.patch('/like',async (req:Request, res:Response): Promise<void> =>{
 })
 
 //get one post
-router.get('/:id',async (req:Request, res:Response): Promise<void> =>{
+router.get('/:id',async (req:Request, res:Response): Promise<Post[] | void> =>{
     try{
+        const post:Post|undefined = await PostService.getOnePosts(req.params.id)
         res.json({
-            err: false,
-            message: `usercontroller register try is ok`,
-            data: undefined
+            post        
         })
     }catch{
         res.status(400).json({
             err: true,
-            message: `usercontroller register catch`,
+            message: `postcontroller onepost catch`,
             data: null
         })
     }
