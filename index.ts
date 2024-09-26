@@ -6,11 +6,14 @@ import postController from './controllers/postController'
 
 const app: Express = express()
 
+const PORT:number = 1234
+
 app.use(express.json())
 
 app.use('/auth', authController)
 app.use('/users', userController)
 app.use('/posts', postController)
+
 
 
 

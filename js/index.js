@@ -9,6 +9,7 @@ const authController_1 = __importDefault(require("./controllers/authController")
 const userController_1 = __importDefault(require("./controllers/userController"));
 const postController_1 = __importDefault(require("./controllers/postController"));
 const app = (0, express_1.default)();
+const PORT = 1234;
 app.use(express_1.default.json());
 app.use('/auth', authController_1.default);
 app.use('/users', userController_1.default);

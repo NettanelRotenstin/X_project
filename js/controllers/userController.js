@@ -122,4 +122,22 @@ router.get('/following', (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
 }));
+//get one user
+router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield userService_1.default.getOneUser(req.params.id);
+        console.log(user === null || user === void 0 ? void 0 : user.userName);
+        res.json({
+            soccess: true,
+            username: user === null || user === void 0 ? void 0 : user.birthday
+        });
+    }
+    catch (_a) {
+        res.status(400).json({
+            err: true,
+            message: `usercontroller oneuser catch`,
+            data: null
+        });
+    }
+}));
 exports.default = router;
