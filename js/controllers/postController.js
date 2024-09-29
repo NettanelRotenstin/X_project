@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const postService_1 = __importDefault(require("../services/postService"));
+const postService_1 = __importDefault(require("../src/services/postService"));
 const router = express_1.default.Router();
 //get all posts
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

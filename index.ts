@@ -1,13 +1,13 @@
 import express, { Express } from 'express'
-import cookieParser         from 'cookie-parser'
-import authController       from './controllers/authController'
-import userController       from './controllers/userController'
-import postController       from './controllers/postController'
+import cookieParser from 'cookie-parser'
+import authController from './src/controllers/authController'
+import userController from './src/controllers/userController' 
+import postController from './src/controllers/postController'
 import 'dotenv/config'
 
 const app: Express = express()
 
-const PORT:number = 1234
+const PORT: number = 1234
 
 app.use(express.json())
 app.use(cookieParser())

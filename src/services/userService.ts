@@ -1,5 +1,5 @@
 import newUserDTO from "../DTO/newUserDTO";
-import User from "../models/userModel";
+import User from "../../src/models/userModel";
 import { getFileData, saveFileData } from "../config/fileDataLayer";
 
 
