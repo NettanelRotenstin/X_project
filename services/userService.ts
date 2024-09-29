@@ -1,5 +1,4 @@
 import newUserDTO from "../DTO/newUserDTO";
-import fs from 'fs/promises'
 import User from "../models/userModel";
 import { getFileData, saveFileData } from "../config/fileDataLayer";
 
